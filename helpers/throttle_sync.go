@@ -1,4 +1,4 @@
-package throttling
+package helpers
 
 import (
 	"sync"

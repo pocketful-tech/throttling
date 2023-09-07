@@ -1,26 +1,18 @@
-package throttling
+package main
 
 import (
-	"fmt"
+	"bytes"
 	"io"
-	"net/http"
+	"throttling/helpers"
 	"time"
 )
 
-func MakeAPIRequest(apiURL string) ([]byte, error) {
+func MakeAPIRequest(method string, apiURL string, payload *bytes.Buffer, authorization string) ([]byte, error) {
 
 	var resByte []byte
 
-	// Create an HTTP GET request
-	req, err := http.NewRequest("GET", apiURL, nil)
-	if err != nil {
-		fmt.Println("Error1: ", err)
-		return resByte, err
-	}
+	resp, err := helpers.CallApi(method, apiURL, payload, authorization)
 
-	// Send the request
-	client := &http.Client{}
-	resp, err := client.Do(req)
 	if err != nil {
 		return resByte, err
 	}
@@ -35,8 +27,8 @@ func MakeAPIRequest(apiURL string) ([]byte, error) {
 	return resByte, nil
 }
 
-func NewAPIThrottler(requestsPerSecond int, clientName, clientIp, vendorName string) *APIThrottler {
-	return &APIThrottler{
+func NewAPIThrottler(requestsPerSecond int, clientName, clientIp, vendorName string) *helpers.APIThrottler {
+	return &helpers.APIThrottler{
 		RequestsPerSecond: requestsPerSecond,
 		LastRequestTime:   time.Now(),
 		ClientName:        clientName,
