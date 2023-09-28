@@ -1,9 +1,8 @@
-package main
+package throttling
 
 import (
 	"bytes"
 	"io"
-	"throttling/helpers"
 	"time"
 )
 
@@ -11,7 +10,18 @@ func MakeAPIRequest(method string, apiURL string, payload *bytes.Buffer, authori
 
 	var resByte []byte
 
-	resp, err := helpers.CallApi(method, apiURL, payload, authorization)
+	// Create an HTTP GET request
+
+	// req, err := http.NewRequest(method, apiURL, payload)
+	// if err != nil {
+	// 	return resByte, err
+	// }
+
+	// // Send the request
+	// client := &http.Client{}
+	// resp, err := client.Do(req)
+
+	resp, err := CallApi(method, apiURL, payload, authorization)
 
 	if err != nil {
 		return resByte, err
@@ -27,8 +37,8 @@ func MakeAPIRequest(method string, apiURL string, payload *bytes.Buffer, authori
 	return resByte, nil
 }
 
-func NewAPIThrottler(requestsPerSecond int, clientName, clientIp, vendorName string) *helpers.APIThrottler {
-	return &helpers.APIThrottler{
+func NewAPIThrottler(requestsPerSecond int, clientName, clientIp, vendorName string) *APIThrottler {
+	return &APIThrottler{
 		RequestsPerSecond: requestsPerSecond,
 		LastRequestTime:   time.Now(),
 		ClientName:        clientName,
