@@ -1,26 +1,28 @@
 package throttling
 
 import (
-	"fmt"
+	"bytes"
 	"io"
-	"net/http"
 	"time"
 )
 
-func MakeAPIRequest(apiURL string) ([]byte, error) {
+func MakeAPIRequest(method string, apiURL string, payload *bytes.Buffer, authorization string) ([]byte, error) {
 
 	var resByte []byte
 
 	// Create an HTTP GET request
-	req, err := http.NewRequest("GET", apiURL, nil)
-	if err != nil {
-		fmt.Println("Error1: ", err)
-		return resByte, err
-	}
 
-	// Send the request
-	client := &http.Client{}
-	resp, err := client.Do(req)
+	// req, err := http.NewRequest(method, apiURL, payload)
+	// if err != nil {
+	// 	return resByte, err
+	// }
+
+	// // Send the request
+	// client := &http.Client{}
+	// resp, err := client.Do(req)
+
+	resp, err := CallApi(method, apiURL, payload, authorization)
+
 	if err != nil {
 		return resByte, err
 	}
