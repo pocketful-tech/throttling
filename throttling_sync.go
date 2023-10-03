@@ -36,7 +36,7 @@ type APIClient struct {
 }
 
 // NewAPIClient creates a new API client instance.
-func NewAPIClient(throttler *APIThrottler, authToken, apiBaseURL string) *APIClient {
+func NewAPIClient(throttler *APIThrottler) *APIClient {
 	return &APIClient{
 		Throttler: throttler,
 	}
