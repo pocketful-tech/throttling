@@ -29,3 +29,15 @@ func (t *APIThrottler) Throttle() {
 
 	t.LastRequestTime = time.Now()
 }
+
+// APIClient represents an API client.
+type APIClient struct {
+	Throttler *APIThrottler
+}
+
+// NewAPIClient creates a new API client instance.
+func NewAPIClient(throttler *APIThrottler, authToken, apiBaseURL string) *APIClient {
+	return &APIClient{
+		Throttler: throttler,
+	}
+}
