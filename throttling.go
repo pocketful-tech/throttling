@@ -6,20 +6,10 @@ import (
 	"time"
 )
 
-func MakeAPIRequest(method string, apiURL string, payload *bytes.Buffer, authorization string) ([]byte, error) {
+func (c *APIClient) MakeAPIRequest(method string, apiURL string, payload *bytes.Buffer, authorization string) ([]byte, error) {
+	c.Throttler.Throttle()
 
 	var resByte []byte
-
-	// Create an HTTP GET request
-
-	// req, err := http.NewRequest(method, apiURL, payload)
-	// if err != nil {
-	// 	return resByte, err
-	// }
-
-	// // Send the request
-	// client := &http.Client{}
-	// resp, err := client.Do(req)
 
 	resp, err := CallApi(method, apiURL, payload, authorization)
 
