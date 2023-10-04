@@ -10,7 +10,6 @@ type APIThrottler struct {
 	LastRequestTime   time.Time
 	Mu                sync.Mutex
 	ClientName        string
-	ClientIp          string
 	VendorName        string
 }
 

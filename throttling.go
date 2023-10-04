@@ -27,12 +27,11 @@ func (c *APIClient) MakeAPIRequest(method string, apiURL string, payload *bytes.
 	return resByte, nil
 }
 
-func NewAPIThrottler(requestsPerSecond int, clientName, clientIp, vendorName string) *APIThrottler {
+func NewAPIThrottler(requestsPerSecond int, clientName, vendorName string) *APIThrottler {
 	return &APIThrottler{
 		RequestsPerSecond: requestsPerSecond,
 		LastRequestTime:   time.Now(),
 		ClientName:        clientName,
-		ClientIp:          clientIp,
 		VendorName:        vendorName,
 	}
 }
