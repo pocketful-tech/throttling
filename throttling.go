@@ -33,5 +33,6 @@ func NewAPIThrottler(requestsPerSecond int, clientName, vendorName string) *APIT
 		LastRequestTime:   time.Now(),
 		ClientName:        clientName,
 		VendorName:        vendorName,
+		Count:             0,
 	}
 }
